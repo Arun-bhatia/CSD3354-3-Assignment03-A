@@ -8,6 +8,8 @@ namespace BankAccountNS
         private string m_customerName;
         private double m_balance;
         private bool m_frozen = false;
+        public const string DebitAEBM = "debit amount exceeds balance";
+        public const string DebitALTZM = "debit amount less han zero";
 
         private BankAccount()
         {
@@ -31,6 +33,7 @@ namespace BankAccountNS
 
         public void Debit(double amount)
         {
+            
             if (m_frozen)
 
             {
@@ -41,12 +44,12 @@ namespace BankAccountNS
             if (amount > m_balance)
 
             {
-                throw new ArgumentOutOfRangeException("amount");
+                throw new ArgumentOutOfRangeException("amount",amount, DebitAEBM);
 
             }
             if (amount < 0)
             {
-                throw new ArgumentOutOfRangeException("amount");
+                throw new ArgumentOutOfRangeException("amount",amount,DebitALTZM);
             }
 
             m_balance -= amount;
@@ -62,7 +65,7 @@ namespace BankAccountNS
 
             if (amount < 0)
             {
-                throw new ArgumentOutOfRangeException(" AMOUNT");
+                throw new ArgumentOutOfRangeException("amount");
             }
 
             m_balance += amount;
